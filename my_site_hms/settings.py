@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 
 from pathlib import Path
 
+# importing OS is-used for the python module allow to interect with the operating system 
+import os 
+from django.contrib.messages import constants as messages  #message framework display temporary notifications to users
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -58,7 +62,7 @@ ROOT_URLCONF = 'my_site_hms.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR , 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -108,7 +112,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -119,6 +124,34 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
+STATIC_ROOT= os.path.join(BASE_DIR,"staticfiles")     #its collect the all static file and store in static root 
+
+
+STATICFILES_DIRS= [os.path.join(BASE_DIR,"static")]
+
+MEDIA_URL='/media/'     #user for user uploaded files 
+
+MEDIA_ROOT=os.path.join(BASE_DIR , "media")
+
+# """overriding the default login url feature """
+LOGIN_URL='/'
+
+LOGIN_REDIRECT_URL='/'
+
+LOGOUT_REDIRECT_URL='/'
+
+# AUTH_USER_MODEL=""
+
+
+# """messagess tag """
+MESSAGE_TAGS={
+    messages.ERROR :"danger"
+}
+
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 
 # Email
