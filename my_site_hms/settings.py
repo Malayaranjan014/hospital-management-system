@@ -143,7 +143,7 @@ LOGIN_REDIRECT_URL='/'
 
 LOGOUT_REDIRECT_URL='/'
 
-# AUTH_USER_MODEL=""
+AUTH_USER_MODEL="userauths.User"   #overriding the default user model with custom user model
 
 
 # """messagess tag """
@@ -220,4 +220,9 @@ JAZZMIN_UI_TWEAKS = {
         "success": "btn-success"
     }
 }
+
+
+
+
+
 
