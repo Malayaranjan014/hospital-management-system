@@ -1,0 +1,147 @@
+/*global style*/
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+    background: #f4f8fb;
+}
+
+
+/* navbar*/
+
+.navbar {
+    background: #212529 !important;
+    padding: 12px 0;
+}
+
+
+/*brand */
+
+.navbar-brand {
+    color: white !important;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+
+/* navigartons link */
+
+.nav-link {
+    color: white !important;
+    font-weight: 500;
+    margin: 0 5px;
+    transition: 0.3s;
+}
+
+.nav-link:hover {
+    color: #0d6efd !important;
+}
+
+
+/* dropdown*/
+
+.dropdown-menu {
+    border: none;
+    border-radius: 10px;
+    padding: 8px 0;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.15);
+
+    min-width: 190px;
+}
+
+
+/* Dropdown items */
+
+.dropdown-item {
+    padding: 10px 18px;
+
+    font-size: 14px;
+
+    color: #334155;
+
+    transition: 0.2s;
+}
+
+
+.dropdown-item:hover {
+    background: #f1f6ff;
+    color: #0d6efd;
+}
+
+
+/*login button*/
+
+.login-btn {
+
+    background: white;
+    border: 1px solid #e1e5e9;
+    color: #172b4d;
+    font-weight: 600;
+    padding: 9px 18px;
+    border-radius: 9px;
+    transition: 0.3s;
+}
+
+
+.login-btn:hover {
+    background: #f1f6ff;
+    color: #0d6efd;
+
+}
+
+
+/*register button */
+
+.register-btn {
+
+    background: #0d6efd;
+    border: 1px solid #0d6efd;
+    color: white;
+    font-weight: 600;
+    padding: 9px 20px;
+    border-radius: 9px;
+    transition: 0.3s;
+}
+
+
+.register-btn:hover {
+
+    background: #0b5ed7;
+    border-color: #0b5ed7;
+    color: white;
+
+}
+
+
+/* mobile navbar */
+
+@media (max-width: 991px) {
+
+    .navbar-nav {
+        padding-top: 15px;
+        padding-bottom: 10px;
+    }
+
+
+    .nav-link {
+        padding: 10px 5px;
+    }
+
+
+    .navbar .d-flex {
+        padding-bottom: 10px;
+    }
+
+
+    .dropdown-menu {
+        box-shadow: none;
+        border-radius: 5px;
+    }
+
+}

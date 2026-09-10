@@ -2,6 +2,10 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from userauths.models import User 
 
+USER_TYPE_CHOICES=[
+        ("Doctor","Doctor"),
+        ("Patient","Patient"),
+    ]
 
 
 #create a form for user registration
@@ -10,6 +14,7 @@ class UserRegisterForm(UserCreationForm):
     email=forms.EmailField(widget=forms.TextInput(attrs={"class":"form-control","placeholder":"Enter Your Email"}))
     password1=forms.CharField(widget=forms.PasswordInput(attrs={"class":"form-control","placeholder":"Enter Your Password"}))
     password2=forms.CharField(widget=forms.PasswordInput(attrs={"class":"form-control","placeholder":"Confirm Your Password"})) 
+    user_type=forms.ChoiceField(choices=USER_TYPE_CHOICES, widget=forms.Select(attrs={"class":"form-select"}))
 
 
     class Meta:

@@ -103,4 +103,4 @@ def logout_view(request):
 
     messages.success(request, "Logout successful")
 
-    return render(request, "userauths/signout.html")
+    return render(request, "userauths/signin.html")
