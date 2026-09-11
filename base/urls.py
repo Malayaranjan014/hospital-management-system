@@ -5,8 +5,6 @@ app_name = 'base'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    # path('service/', views.service_details, name='service_details')
+    path('service/<service_id>/', views.service_details, name='service_details')
 ]
 
-
-# /<service_id>/
