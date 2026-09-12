@@ -1,8 +1,12 @@
-{% extends "partials/base.html" %} {% load static %} {% block title %}MediCare
-Hub | INDEX{% endblock %} {% block extra_css %}
-<link rel="stylesheet" href="{% static 'assets/css/index.css' %}" />
-{% endblock %} {% block content %}
+{% extends "partials/base.html" %} 
+{% load static %}
+ {% block title %}MediCareHub | Service Details{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'assets/css/index.css' %}" />
+{% endblock %}
+
+{% block content %}
 <section class="container">
   <div class="row d-flex justify-content-center align-items-center">
     <div class="col-12 col-lg-7 p-4 rounded-3 bg-white">
@@ -71,7 +75,7 @@ Hub | INDEX{% endblock %} {% block extra_css %}
                 href="course-detail.html"
                 class="text-inherit text-dark text-decoration-none"
               >
-                {{ d.full_name }}
+                Dr.{{ d.full_name }}
               </a>
             </h5>
 
@@ -89,13 +93,13 @@ Hub | INDEX{% endblock %} {% block extra_css %}
           </div>
 
           <div>
-             {% comment %} <a
+              <a
               href="{% url 'base:book_appointment' service.id d.id %}"
               class="btn btn-primary me-4"
             >
               Book Now
               <i class="fas fa-arrow-right ms-2"></i>
-            </a>  {% endcomment %}
+            </a>  
           </div>
         </div>
       </div>

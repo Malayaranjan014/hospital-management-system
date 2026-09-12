@@ -5,6 +5,9 @@ app_name = 'base'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('service/<service_id>/', views.service_details, name='service_details')
+    path('service/<service_id>/', views.service_details, name='service_details'),
+    path('book-appointment/<service_id>/<doctor_id>', views.book_appointment, name='book_appointment'),
+    path('checkout/<billing_id>/',views.checkout,name='checkout')
+    
 ]
 
