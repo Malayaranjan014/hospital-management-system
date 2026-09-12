@@ -16,6 +16,11 @@ from pathlib import Path
 import os 
 from django.contrib.messages import constants as messages  #message framework display temporary notifications to users
 
+from environs import Env 
+
+env=Env()
+env.read_env()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -30,6 +35,7 @@ SECRET_KEY = 'django-insecure-k9nu&ywc%y@fzg0@)2c1rjpowo=)*j@hz3!)m*e83$g!k8e0i+
 DEBUG = True
 
 ALLOWED_HOSTS = []
+SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
 
 
 # Application definition
@@ -154,6 +160,14 @@ MESSAGE_TAGS={
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+
+STRIPE_PUBLIC_KEY=env("STRIPE_PUBLIC_KEY")
+STRIPE_SECRET_KEY =env("STRIPE_SECRET_KEY")  
+
+
+PAYPAL_CLIENT_ID=env("PAYPAL_CLIENT_ID")
+PAYPAL_CLIENT_SECRET=env("PAYPAL_SECRET_ID")
 
 
 # Email

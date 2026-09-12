@@ -19,3 +19,8 @@ index.txt
 
 # backup database 
 db_backup.sqlite3
+db.sqlite3
+
+# env file
+.env
+
