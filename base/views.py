@@ -1,15 +1,15 @@
-from django.shortcuts import render , redirect
+from django.shortcuts import render, redirect
 from base import models as base_models
 from django.contrib.auth.decorators import login_required
 from doctor import models as doctor_models
 from patient import models as patient_models
-from django.conf import settings 
+from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
-import stripe 
-# convert py datastructure  in to json response 
+import stripe
+# convert py datastructure  in to json response
 from django.http import JsonResponse
- #for load .html or .text file 
+# for load .html or .text file
 from decimal import Decimal
 from django.core.mail import EmailMultiAlternatives
 
@@ -17,49 +17,53 @@ from django.template.loader import render_to_string
 # Create your views here.
 import requests
 
+
 def index(request):
-    services=base_models.Service.objects.all()
-    context={'services':services}
+    services = base_models.Service.objects.all()
+    context = {'services': services}
+
+    return render(request, 'base/index.html', context)
 
 
-    return render(request, 'base/index.html',context)
-
-
-
-def service_details(request,service_id):
-    service=base_models.Service.objects.get(id=service_id)
-    context={'service':service}
+def service_details(request, service_id):
+    service = base_models.Service.objects.get(id=service_id)
+    context = {'service': service}
     return render(request, 'base/service_details.html', context)
 
-# for booking appointmnet 
+# for booking appointmnet
+
+
 @login_required
-def book_appointment(request,service_id,doctor_id):
-    service=base_models.Service.objects.get(id=service_id)
-    doctor=doctor_models.Doctor.objects.get(id=doctor_id)
-    patient=patient_models.Patient.objects.get(user=request.user)
+def book_appointment(request, service_id, doctor_id):
+    service = base_models.Service.objects.get(id=service_id)
+    doctor = doctor_models.Doctor.objects.get(id=doctor_id)
+    patient = patient_models.Patient.objects.get(user=request.user)
+
+
 
     if request.method == "POST":
-        full_name=request.POST.get("full_name")
-        email=request.POST.get("email")
-        mobile=request.POST.get("mobile")
-        gender=request.POST.get("gender")
-        address=request.POST.get("address")
-        dob=request.POST.get("dob")
-        issues=request.POST.get("issues")
-        symptoms=request.POST.get("symptoms")
+        full_name = request.POST.get("full_name")
+        email = request.POST.get("email")
+        mobile = request.POST.get("mobile")
+        gender = request.POST.get("gender")
+        address = request.POST.get("address")
+        dob = request.POST.get("dob")
+        issues = request.POST.get("issues")
+        symptoms = request.POST.get("symptoms")
 
-        #update patient biodata 
-        patient.full_name=full_name
-        patient.email=email
-        patient.mobile=mobile
-        patient.gender=gender
-        patient.address=address
-        patient.dob=dob 
+        # update patient biodata
+        patient.full_name = full_name
+        patient.email = email
+        patient.mobile = mobile
+        patient.gender = gender
+        patient.address = address
+        patient.dob = dob
 
         patient.save()
 
-        # createing new appointent object 
-        appointment=base_models.Appointment.objects.create(
+
+        # createing new appointent object
+        appointment = base_models.Appointment.objects.create(
             service=service,
             doctor=doctor,
             patient=patient,
@@ -68,49 +72,38 @@ def book_appointment(request,service_id,doctor_id):
             symptoms=symptoms,
         )
 
+        # create an billing object patient can pay and track billing
 
-        #create an billing object patient can pay and track billing 
-
-        billing=base_models.Billing()
-        billing.patient=patient
-        billing.appointment=appointment
-        billing.sub_total=appointment.service.cost
-        billing.tax=appointment.service.cost * 5 / 100   
-        billing.total=billing.sub_total +  billing.tax 
-        billing.status="Unpaid"
+        billing = base_models.Billing()
+        billing.patient = patient
+        billing.appointment = appointment
+        billing.sub_total = appointment.service.cost
+        billing.tax = appointment.service.cost * 5 / 100
+        billing.total = billing.sub_total + billing.tax
+        billing.status = "Unpaid"
         billing.save()
 
+        return redirect("base:checkout", billing.billing_id)
 
-        return redirect("base:checkout", billing.billing_id) 
-
-
-
-
-
-
-
-
-    context={'service':service ,
-             'doctor':doctor,
-             'patient':patient,
-             }
-    return render (request,"base/book_appointment.html",context)
+    context = {'service': service,
+               'doctor': doctor,
+               'patient': patient,
+               }
+    return render(request, "base/book_appointment.html", context)
 
 
-
-#for payment checkout session
+# for payment checkout session
 @login_required
-def checkout(request,billing_id):
-    billing=base_models.Billing.objects.get(billing_id=billing_id)
+def checkout(request, billing_id):
+    billing = base_models.Billing.objects.get(billing_id=billing_id)
 
-    context={
+    context = {
         'billing': billing,
-        'stripe_public_key':settings.STRIPE_PUBLIC_KEY,
-        'paypal_client_id':settings.PAYPAL_CLIENT_ID,
+        'stripe_public_key': settings.STRIPE_PUBLIC_KEY,
+        'paypal_client_id': settings.PAYPAL_CLIENT_ID,
     }
-    
 
-    return render(request,"base/checkout.html",context)
+    return render(request, "base/checkout.html", context)
 
 
 
@@ -121,9 +114,9 @@ def stripe_payment(request,billing_id):
     billing=base_models.Billing.objects.get(billing_id=billing_id)
     unit_amount=int(Decimal(billing.total) * 100)
 
-    #for directly call to api keys 
-    stripe.api_key=settings.STRIPE_SECRET_KEY 
-    #create stripe checkout session 
+    #for directly call to api keys
+    stripe.api_key=settings.STRIPE_SECRET_KEY
+    #create stripe checkout session
     checkout_session=stripe.checkout.Session.create(
         customer_email=billing.patient.email,
         payment_method_types=['card'],
@@ -135,7 +128,7 @@ def stripe_payment(request,billing_id):
                     'product_data':{
                         'name':billing.patient.full_name
                     },
-                    
+
                     'unit_amount':unit_amount
 
                 },
@@ -151,13 +144,12 @@ def stripe_payment(request,billing_id):
 
 
 
-
-# payment verify function 
+# payment verify function
 
 def stripe_payment_verify(request, billing_id):
     # get the billing record
     billing = base_models.Billing.objects.get(billing_id=billing_id)
-    # get stripe session id from stripe from stripe function 
+    # get stripe session id from stripe from stripe function
     session_id = request.GET.get("session_id")
     session = stripe.checkout.Session.retrieve(session_id)
 
@@ -167,8 +159,7 @@ def stripe_payment_verify(request, billing_id):
             billing.save()
             billing.appointment.status = "Completed"
             billing.appointment.save()
-            billing.appointment.status="completed"
-            billing.appointment.save()
+
 
             # for  docor notifications
             doctor_models.Notification.objects.create(
@@ -188,21 +179,18 @@ def stripe_payment_verify(request, billing_id):
         return redirect(f"/payment_status/{billing.billing_id}/?payment_status=failed")
 
 
-
-
 def get_paypal_access_token(request):
     token_url = 'https://api.sandbox.paypal.com/v1/oauth2/token'
     data = {'grant_type': 'client_credentials'}
     auth = (settings.PAYPAL_CLIENT_ID, settings.PAYPAL_SECRET_ID)
-    response= request.post(token_url, data=data, auth=auth)
+    response = requests.post(token_url, data=data, auth=auth)
 
     if response.status_code == 200:
         print("Access Token: ", response.json()['access_token'])
         return response.json()['access_token']
     else:
-        raise Exception(f"Failed to get access token from PayPal. Status code: {response.status_code}")
-
-
+        raise Exception(
+            f"Failed to get access token from PayPal. Status code: {response.status_code}")
 
 
 def paypal_payment_verify(request, billing_id):
@@ -213,10 +201,10 @@ def paypal_payment_verify(request, billing_id):
     paypal_api_url = f"https://api-m.sandbox.paypal.com/v2/checkout/orders/{transaction_id}"
     headers = {
         'Content-Type': 'application/json',
-        'Authorization': f'Bearer {get_paypal_access_token()}'
+        'Authorization': f'Bearer {get_paypal_access_token(request)}'
     }
 
-    response = request.get(paypal_api_url, headers=headers)
+    response = requests.get(paypal_api_url, headers=headers)
     # print("Response: ", response)
     # print("Response Status Code: ", response.status_code)
 
@@ -249,8 +237,10 @@ def paypal_payment_verify(request, billing_id):
 
                 # Send appointment email to doctor
                 subject = "New Appointment"
-                text_body = render_to_string("email/new_appointment.txt", merge_data)
-                html_body = render_to_string("email/new_appointment.html", merge_data)
+                text_body = render_to_string(
+                    "email/new_appointment.txt", merge_data)
+                html_body = render_to_string(
+                    "email/new_appointment.html", merge_data)
 
                 # Add the try-catch to gracefully handle the case where email cannot be sent
                 try:
@@ -265,8 +255,10 @@ def paypal_payment_verify(request, billing_id):
 
                     # Send appointment booked email to patient
                     subject = "Appointment Booked Successfully"
-                    text_body = render_to_string("email/appointment_booked.txt", merge_data)
-                    html_body = render_to_string("email/appointment_booked.html", merge_data)
+                    text_body = render_to_string(
+                        "email/appointment_booked.txt", merge_data)
+                    html_body = render_to_string(
+                        "email/appointment_booked.html", merge_data)
 
                     msg = EmailMultiAlternatives(
                         subject=subject,
@@ -280,15 +272,10 @@ def paypal_payment_verify(request, billing_id):
                     print("Email cannot be sent now!")
 
                 return redirect(f"/payment_status/{billing.billing_id}/?payment_status=paid")
-        
+
         return redirect(f"/payment_status/{billing.billing_id}/?payment_status=failed")
-        
-    
+
     return redirect(f"/payment_status/{billing.billing_id}/?payment_status=failed")
- 
-
-
-
 
 
 @login_required

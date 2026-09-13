@@ -67,17 +67,17 @@
             <div class="shadow p-3 rounded-3">
                 <div class="d-flex justify-content-between">
                     <p class="fw-semibold fs-5">Sub-total</p>
-                    <p class="fs-5">${{billing.sub_total}}</p>
+                    <p class="fs-5">$ {{billing.sub_total}}</p>
                 </div>
 
                 <div class="d-flex justify-content-between">
                     <p class="fw-semibold fs-5">VAT</p>
-                    <p class="fs-5">${{billing.tax}}</p>
+                    <p class="fs-5">$ {{billing.tax}}</p>
                 </div>
 
                 <div class="d-flex justify-content-between">
                     <p class="fw-bold fs-4">Total</p>
-                    <p class="fw-bold fs-4">${{billing.total}}</p>
+                    <p class="fw-bold fs-4">$ {{billing.total}}</p>
                 </div>
                 <div class="mt-4">
                     <button type="button" id="stripe-payment" class="btn text-white w-100" style="background-color: blueviolet">Pay With Stripe <i class="fas fa-credit-card ms-2"></i></button>
@@ -93,14 +93,16 @@
 
 
 {% comment %} import stripe package  {% endcomment %}
-<script src="https://www.paypal.com/sdk/js?client-id={{paypal_client_id}}&currency=INR"></script>
+
+<script src="https://www.paypal.com/sdk/js?client-id={{ paypal_client_id }}&currency=USD"></script>
 <script src="https://js.stripe.com/v3/"></script>
+
 
 <script>
     var stripe = Stripe("{{stripe_public_key}}");
     var checkoutButton = document.getElementById("stripe-payment");
 
-    checkoutButton.addEventListener("click", function () {
+    {% comment %} checkoutButton.addEventListener("click", function () {
 
     checkoutButton.innerHTML =
         "Processing <i class='fas fa-spinner fa-spin ms-2'></i>";
@@ -138,7 +140,7 @@
 
         checkoutButton.innerHTML = "Pay With Stripe";
     });
-});
+}); {% endcomment %}
 
 
 
@@ -149,7 +151,9 @@
 
 
 
-{% comment %} 
+
+
+
     try {
         checkoutButton.addEventListener("click", function () {
             var email = "{{billing.patient.email}}";
@@ -178,7 +182,13 @@
         });
     } catch (error) {
         console.log(error);
-    } {% endcomment %}
+
+    }
+
+  
+
+
+
 
 
 
@@ -200,7 +210,7 @@
 
                 createOrder: function (data, actions) {
                     return actions.order.create({
-                        purchase_units: [{ amount: { currency_code: "USD", value: "{{billing.total}}" } }],
+                        purchase_units: [{ amount: { currency_code: "USD", value: "{{ billing.total }}" } }],
                     });
                 },
 
@@ -216,9 +226,15 @@
                         window.location.href = `/paypal_payment_verify/{{billing.billing_id}}/?transaction_id=${orderData.id}`;
                     });
                 },
+                onCancel: function(data){
+                    console.log(
+                        "PayPal payment cancelled:" , data 
+                    );
+                } ,
 
                 onError: function (err) {
-                    console.log(err);
+                    console.log("PAYPAL ERROR", err);
+                    alert("PayPal Error. Check the browser console.");
                 },
             })
             .render("#paypal-button-container");

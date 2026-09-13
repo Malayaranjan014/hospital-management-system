@@ -53,8 +53,55 @@ class LabTestAdmin(admin.ModelAdmin):
 class PrescriptionAdmin(admin.ModelAdmin):
     list_display = ['appointment', 'medications']
 
+# class BillingAdmin(admin.ModelAdmin):
+#     list_display = ['patient','service_name', 'total', 'status', 'date']
+
+
 class BillingAdmin(admin.ModelAdmin):
-    list_display = ['patient', 'total', 'status', 'date']
+
+    list_display = [
+        'billing_id',
+        'patient',
+        'service_name',
+        'doctor_name',
+        'sub_total',
+        'tax',
+        'total',
+        'status',
+        'date',
+    ]
+
+    search_fields = [
+        'billing_id',
+        'patient__full_name',
+        'appointment__service__name',
+        'appointment__doctor__full_name',
+    ]
+
+    list_filter = [
+        'status',
+        'date',
+    ]
+
+    ordering = ['-date']
+
+    def service_name(self, obj):
+
+        if obj.appointment and obj.appointment.service:
+            return obj.appointment.service.name
+
+        return "N/A"
+
+    service_name.short_description = "Service"
+
+    def doctor_name(self, obj):
+
+        if obj.appointment and obj.appointment.doctor:
+            return obj.appointment.doctor.full_name
+
+        return "N/A"
+
+    doctor_name.short_description = "Doctor"
 
 
 
