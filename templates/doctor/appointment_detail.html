@@ -1,0 +1,41 @@
+
+{% extends "partials/base.html" %} 
+{% load static %}
+
+ 
+{% comment %}doctor appointments details {% endcomment %}
+ {% block title %}MediCareHub | Doctor Appointments Details{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'assets/css/index.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+<section class="pt-5 pb-5">
+    <div class="container">
+        <div class="row mt-0 mt-md-4">
+            {% include 'doctor/sidebar.html' %}
+
+            <div class="col-lg-9 col-md-8 col-12">
+                <h4 class="mb-0 mb-4 fw-bold">Appointment Detail #12345</h4>
+                <div class="card mb-4">
+                    <div class="shadow border p-3 mb-4 rounded-4">
+                        <p>
+                            <a>
+                                <p><span class="fw-semibold text-dark">Appointment ID:</span> #{{appointment.appointment_id}}</p>
+                                <p><span class="fw-semibold text-dark">Service:</span> {{appointment.service.name}}</p>
+                                <p><span class="fw-semibold text-dark">Patient:</span> {{appointment.patient.full_name}}</p>
+                                <p><span class="fw-semibold text-dark">Issue:</span> {{appointment.issues}}</p>
+                                <p><span class="fw-semibold text-dark">Symptoms:</span> {{appointment.symptoms}}</p>
+                                <p><span class="fw-semibold text-dark">Status:</span> {{appointment.status}}</p>
+                                <p><span class="fw-semibold text-dark">Date:</span> {{appointment.appointment_date}}</p>
+                                
+                            </a>
+                        </p>
+                    </div>
+                </div>
+
+                
+</section>
+{% endblock  %}
