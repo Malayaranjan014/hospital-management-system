@@ -198,3 +198,42 @@ def edit_prescription(request, appointment_id, prescription_id):
 
     messages.success(request, "Prescription Updated Successfully")
     return redirect("doctor:appointment_detail", appointment.appointment_id)
+
+
+
+@login_required
+def payments(request):
+    doctor = doctor_models.Doctor.objects.get(user=request.user)
+    payments = base_models.Billing.objects.filter(appointment__doctor=doctor, status="Paid")
+
+    context = {
+        "payments": payments,
+    }
+
+    return render(request, "doctor/payments.html", context)  
+
+
+
+# view for notifications 
+@login_required
+def notifications(request):
+    doctor = doctor_models.Doctor.objects.get(user=request.user)
+    notifications = doctor_models.Notification.objects.filter(doctor=doctor, seen=False)
+
+    context = {
+        "notifications": notifications
+    }
+
+    return render(request, "doctor/notifications.html", context)
+
+
+
+@login_required
+def mark_notification_seen(request, id):
+    doctor = doctor_models.Doctor.objects.get(user=request.user)
+    notification = doctor_models.Notification.objects.get(doctor=doctor, id=id)
+    notification.seen = True
+    notification.save()
+    
+    messages.success(request, "Notification marked as seen")
+    return redirect("doctor:notifications") 
