@@ -288,3 +288,6 @@ def payment_status(request, billing_id):
         "payment_status": payment_status,
     }
     return render(request, "base/payment_status.html", context)
+
+
+

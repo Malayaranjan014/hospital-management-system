@@ -37,7 +37,7 @@ def appointments(request):
     return render(request, "doctor/appointments.html", context)
 
 
-
+# view for appointment details 
 @login_required
 def appointment_detail(request, appointment_id):
     doctor = doctor_models.Doctor.objects.get(user=request.user)
@@ -57,7 +57,7 @@ def appointment_detail(request, appointment_id):
     return render(request, "doctor/appointment_detail.html", context)
 
 
-
+# for doctor appointment view like cancle appointment or shedule appointment  
 @login_required
 def cancel_appointment(request, appointment_id):
     doctor = doctor_models.Doctor.objects.get(user=request.user)
@@ -70,7 +70,7 @@ def cancel_appointment(request, appointment_id):
     return redirect("doctor:appointment_detail", appointment.appointment_id)
 
 
-
+ 
 @login_required
 def activate_appointment(request, appointment_id):
     doctor = doctor_models.Doctor.objects.get(user=request.user)
@@ -96,7 +96,7 @@ def complete_appointment(request, appointment_id):
     return redirect("doctor:appointment_detail", appointment.appointment_id)
 
 
-
+# for medical view 
 @login_required
 def add_medical_report(request, appointment_id):
     doctor = doctor_models.Doctor.objects.get(user=request.user)
@@ -131,7 +131,7 @@ def edit_medical_report(request, appointment_id, medical_report_id):
     messages.success(request, "Medical Report Updated Successfully")
     return redirect("doctor:appointment_detail", appointment.appointment_id)
 
-
+# for lab test view 
 @login_required
 def add_lab_test(request, appointment_id):
     doctor = doctor_models.Doctor.objects.get(user=request.user)
@@ -166,4 +166,35 @@ def edit_lab_test(request, appointment_id, lab_test_id):
         lab_test.save()
 
     messages.success(request, "Lab Report Updated Successfully")
+    return redirect("doctor:appointment_detail", appointment.appointment_id)
+
+
+# for prescription view 
+@login_required
+def add_prescription(request, appointment_id):
+    doctor = doctor_models.Doctor.objects.get(user=request.user)
+    appointment = base_models.Appointment.objects.get(appointment_id=appointment_id, doctor=doctor)
+
+    if request.method == "POST":
+        medications = request.POST.get("medications")
+        base_models.Prescription.objects.create(medications=medications, appointment=appointment)
+
+    messages.success(request, "Prescription Added Successfully")
+    return redirect("doctor:appointment_detail", appointment.appointment_id)
+
+
+@login_required
+def edit_prescription(request, appointment_id, prescription_id):
+    doctor = doctor_models.Doctor.objects.get(user=request.user)
+    appointment = base_models.Appointment.objects.get(appointment_id=appointment_id, doctor=doctor)
+    # for edit we need to access the fetch the  prescription
+    prescription = base_models.Prescription.objects.get(id=prescription_id)
+
+    if request.method == "POST":
+        medications = request.POST.get("medications")
+        # update the existing prescription
+        prescription.medications = medications
+        prescription.save()
+
+    messages.success(request, "Prescription Updated Successfully")
     return redirect("doctor:appointment_detail", appointment.appointment_id)
