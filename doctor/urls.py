@@ -28,6 +28,9 @@ urlpatterns = [
     path("notifications/",views.notifications,name="notifications"),
     path("mark_notification_seen/<id>",views.mark_notification_seen,name="mark_notification_seen"),
 
+
+    path("profile/",views.profile,name="profile")
+
     
 
 
