@@ -16,6 +16,9 @@ urlpatterns = [
     path("payments/",views.payments,name="payments"),
     path("notifications/",views.notifications,name="notifications"),
     path("mark_notifications_seen/<id>",views.mark_notifications_seen,name="mark_notifications_seen"),
+
+
+    path("profile/",views.profile,name="profile"),
     
 
 ]
