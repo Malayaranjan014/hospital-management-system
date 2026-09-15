@@ -13,4 +13,9 @@ urlpatterns = [
     path("activate_appointment/<appointment_id>",views.activate_appointment,name="activate_appointment"),
     path("complete_appointment/<appointment_id>",views.complete_appointment,name="complete_appointment"),
 
+    path("payments/",views.payments,name="payments"),
+    path("notifications/",views.notifications,name="notifications"),
+    path("mark_notifications_seen/<id>",views.mark_notifications_seen,name="mark_notifications_seen"),
+    
+
 ]
