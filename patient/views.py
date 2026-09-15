@@ -23,3 +23,73 @@ def dashboard(request):
     }
 
     return render(request, "patient/dashboard.html", context)
+
+
+# view for patient appointment 
+@login_required
+def appointments(request):
+    patient = patient_models.Patient.objects.get(user=request.user)
+    appointments = base_models.Appointment.objects.filter(patient=patient)
+
+    context = {
+        "appointments": appointments,
+    }
+
+    return render(request, "patient/appointments.html", context)
+
+
+@login_required
+def appointment_detail(request, appointment_id):
+    patient = patient_models.Patient.objects.get(user=request.user)
+    appointment = base_models.Appointment.objects.get(appointment_id=appointment_id, patient=patient)
+    
+    medical_records = base_models.MedicalRecord.objects.filter(appointment=appointment)
+    lab_tests = base_models.LabTest.objects.filter(appointment=appointment)
+    prescriptions = base_models.Prescription.objects.filter(appointment=appointment)
+
+    context = {
+        "appointment": appointment,
+        "medical_records": medical_records,
+        "lab_tests": lab_tests,
+        "prescriptions": prescriptions,
+    }
+
+    return render(request, "patient/appointment_detail.html", context)
+
+
+
+
+@login_required
+def cancel_appointment(request, appointment_id):
+    patient = patient_models.Patient.objects.get(user=request.user)
+    appointment = base_models.Appointment.objects.get(appointment_id=appointment_id, patient=patient)
+
+    appointment.status = "Cancelled"
+    appointment.save()
+
+    messages.success(request, "Appointment Cancelled Successfully")
+    return redirect("patient:appointment_detail", appointment.appointment_id)
+
+
+@login_required
+def activate_appointment(request, appointment_id):
+    patient = patient_models.Patient.objects.get(user=request.user)
+    appointment = base_models.Appointment.objects.get(appointment_id=appointment_id, patient=patient)
+
+    appointment.status = "Scheduled"
+    appointment.save()
+
+    messages.success(request, "Appointment Re-Scheduled Successfully")
+    return redirect("patient:appointment_detail", appointment.appointment_id)
+
+
+@login_required
+def complete_appointment(request, appointment_id):
+    patient = patient_models.Patient.objects.get(user=request.user)
+    appointment = base_models.Appointment.objects.get(appointment_id=appointment_id, patient=patient)
+
+    appointment.status = "Completed"
+    appointment.save()
+
+    messages.success(request, "Appointment Completed Successfully")
+    return redirect("patient:appointment_detail", appointment.appointment_id)
