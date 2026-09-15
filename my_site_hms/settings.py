@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'doctor',
     'patient',
     'userauths',
+
+    'anymail'
 ]
 
 MIDDLEWARE = [
@@ -156,6 +158,19 @@ AUTH_USER_MODEL="userauths.User"   #overriding the default user model with custo
 MESSAGE_TAGS={
     messages.ERROR :"danger"
 }
+
+# configure an email api 
+ANYMAIL={
+    "MAILGUN_API_KEY" : os.environ.get("MAILGUN_API_KEY"),
+    "MAILGUN_SENDER_DOMAIN":os.environ.get("MAILGUN_SENDER_DOMAIN"),
+}
+
+FROM_MAIL="supunpradhani79@gmail.com"
+EMAIL_BACKEND="anymail.backends.mailgun.EmailBackend"
+DEFAULT_FROM_EMAIL="supunpradhani79@gmail.com"
+SERVER_EMAIL="supunpradhni79@gmail.com"
+
+
 
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

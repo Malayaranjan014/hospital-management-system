@@ -92,6 +92,8 @@
               <form method="POST" class="needs-validation">
                 {% csrf_token %}
 
+                {{ form.errors }}
+
                 <!-- FULL NAME -->
 
                 <div class="mb-3">
@@ -169,7 +171,9 @@
                 <div class="signin-text">
                   Already have an account?
 
-                  <a href="/auth/signin/"> Sign In </a>
+                <a href="{% url 'userauths:signin' %}">Sign In</a>
+
+                  {% comment %} <a href="/auth/signin/"> Sign In </a> {% endcomment %}
                 </div>
               </form>
             </div>

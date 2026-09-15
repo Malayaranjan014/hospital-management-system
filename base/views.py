@@ -174,6 +174,47 @@ def stripe_payment_verify(request, billing_id):
                 type="Appointment Scheduled"
             )
 
+            merge_data = {
+                     "billing": billing
+                }
+            # Send appointment email to doctor
+            subject = "New Appointment"
+            text_body = render_to_string("email/new_appointment.txt", merge_data)
+            html_body = render_to_string("email/new_appointment.html", merge_data)
+            
+            # Add the try-catch to gracefully handle the case where email cannot be sent
+            try:
+                    msg = EmailMultiAlternatives(
+                        subject=subject,
+                        from_email=settings.FROM_EMAIL,
+                        to=[billing.appointment.doctor.user.email],
+                        body=text_body
+                    )
+                    msg.attach_alternative(html_body, "text/html")
+                    msg.send()
+            
+                    # Send appointment booked email to patient
+                    subject = "Appointment Booked Successfully"
+                    text_body = render_to_string("email/appointment_booked.txt", merge_data)
+                    html_body = render_to_string("email/appointment_booked.html", merge_data)
+            
+                    msg = EmailMultiAlternatives(
+                                    subject=subject,
+                                    from_email=settings.FROM_EMAIL,
+                                    to=[billing.appointment.patient.email],
+                                    body=text_body
+                                )
+                    msg.attach_alternative(html_body, "text/html")
+                    msg.send()
+            except:
+                    print("Email cannot be sent now!")
+            
+
+            
+
+           
+            
+
             return redirect(f"/payment_status/{billing.billing_id}/?payment_status=paid")
     else:
         return redirect(f"/payment_status/{billing.billing_id}/?payment_status=failed")
@@ -231,45 +272,45 @@ def paypal_payment_verify(request, billing_id):
                     type="Appointment Scheduled"
                 )
 
-                merge_data = {
-                    "billing": billing
-                }
+                # merge_data = {
+                #     "billing": billing
+                # }
 
-                # Send appointment email to doctor
-                subject = "New Appointment"
-                text_body = render_to_string(
-                    "email/new_appointment.txt", merge_data)
-                html_body = render_to_string(
-                    "email/new_appointment.html", merge_data)
+                # # Send appointment email to doctor
+                # subject = "New Appointment"
+                # text_body = render_to_string(
+                #     "email/new_appointment.txt", merge_data)
+                # html_body = render_to_string(
+                #     "email/new_appointment.html", merge_data)
 
-                # Add the try-catch to gracefully handle the case where email cannot be sent
-                try:
-                    msg = EmailMultiAlternatives(
-                        subject=subject,
-                        from_email=settings.FROM_EMAIL,
-                        to=[billing.appointment.doctor.user.email],
-                        body=text_body
-                    )
-                    msg.attach_alternative(html_body, "text/html")
-                    msg.send()
+                # # Add the try-catch to gracefully handle the case where email cannot be sent
+                # try:
+                #     msg = EmailMultiAlternatives(
+                #         subject=subject,
+                #         from_email=settings.FROM_EMAIL, 
+                #         to=[billing.appointment.doctor.user.email],
+                #         body=text_body
+                #     )
+                #     msg.attach_alternative(html_body, "text/html")
+                #     msg.send()
 
-                    # Send appointment booked email to patient
-                    subject = "Appointment Booked Successfully"
-                    text_body = render_to_string(
-                        "email/appointment_booked.txt", merge_data)
-                    html_body = render_to_string(
-                        "email/appointment_booked.html", merge_data)
+                #     # Send appointment booked email to patient
+                #     subject = "Appointment Booked Successfully"
+                #     text_body = render_to_string(
+                #         "email/appointment_booked.txt", merge_data)
+                #     html_body = render_to_string(
+                #         "email/appointment_booked.html", merge_data)
 
-                    msg = EmailMultiAlternatives(
-                        subject=subject,
-                        from_email=settings.FROM_EMAIL,
-                        to=[billing.appointment.patient.email],
-                        body=text_body
-                    )
-                    msg.attach_alternative(html_body, "text/html")
-                    msg.send()
-                except:
-                    print("Email cannot be sent now!")
+                #     msg = EmailMultiAlternatives(
+                #         subject=subject,
+                #         from_email=settings.FROM_EMAIL,
+                #         to=[billing.appointment.patient.email],
+                #         body=text_body
+                #     )
+                #     msg.attach_alternative(html_body, "text/html")
+                #     msg.send()
+                # except:
+                #     print("Email cannot be sent now!")
 
                 return redirect(f"/payment_status/{billing.billing_id}/?payment_status=paid")
 
