@@ -21,17 +21,33 @@
             </h1>
             <p class="fs-4 mt-4">Every patient is different, every smile is unique, We prioritize safety with health checks, contactless check-in, enhanced PPE, and more.</p>
             <div class="d-flex align-items-center gap-2 mt-5">
-                <button class="btn btn-primary btn-lg">Create Account <i class="fas fa-user-plus ms-1"></i></button>
-                <button class="btn btn-outline-primary btn-lg">Book Appointment <i class="fas fa-arrow-right ms-2"></i></button>
+                <a href="{% url 'userauths:signup' %}" class="btn btn-primary">
+                                Create Account
+                        <i class="fas fa-user-plus ms-1"></i>
+                </a>
+                <a href="#service-section" class="btn btn-primary">
+                        Book Appointment
+                    <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+                
             </div>
         </div>
+
         <div class="col-12 col-lg-5">
-            <img class="img-fluid mt-4" style="width: 100%; height: 350px; object-fit: cover; border-radius: 10px" src="https://indiaeducationdiary.in/wp-content/uploads/2024/03/GettyImages-1217096099-3.jpg" alt="" />
+
+            <img class="img-fluid mt-4"
+                src="/media/images/medicare_hub_hero.png"
+                alt="Medicare Hub"
+                style="width: 110%; height: auto;  border-radius: 10px;">
+
         </div>
+
+        
+            
     </div> 
 </section>
 
-<section class="container mt-5">
+<section class="container mt-5" id="service-section">
     <div class="py-4">
         <h2 class="">Our Services</h2>
         <p class="fs-5 lh-lg mb-4" style="max-width: 700px; color: #495057;">
@@ -74,11 +90,18 @@
     <div class="row d-flex align-items-center">
         <div class="col-lg-6">
             <h1 class="fw-bold">Get Appointment Now!</h1>
-            <p class="text-secondary">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus et voluptate omnis accusantium. Tenetur explicabo vero quo dolore. Repudiandae itaque accusantium dolor ab. Blanditiis esse tempore ut ad accusantium nihil?</p>
+            <p class="text-dark">
+                Book your appointment with our experienced healthcare professionals and take the next step toward better health. 
+                MediCare Hub makes it easy to find the right medical service,
+                 choose a convenient appointment time, and manage your healthcare journey in one place.
+            </p>
 
             <div class="d-flex align-items-center gap-2 mt-5">
                 <button class="btn btn-outline-primary"><i class="fas fa-video ms-1"></i> View Services</button>
-                <button class="btn btn-primary">Create Account <i class="fas fa-user-plus ms-1"></i></button>
+                <a href="{% url 'userauths:signup' %}" class="btn btn-primary">Create Account
+                    <i class="fas fa-user-plus ms-1"></i>
+                </a>
+                
                 <button class="btn btn-primary">Learn More <i class="fas fa-arrow-right ms-1"></i></button>
             </div>
         </div>
@@ -87,6 +110,447 @@
         </div>
     </div>
 </section>
+
+
+
+{% comment %} about section  {% endcomment %}
+
+<section class="container mt-5 pt-5 pb-5" id="about-us">
+    <div class="row justify-content-between align-items-center g-5">
+
+        <!-- ABOUT IMAGE -->
+        <div class="col-xl-6 col-lg-6 col-md-12">
+
+            <div class="position-relative">
+
+                <div class="pe-4 pb-4">
+                    <img
+                        src="https://img.freepik.com/free-photo/people-working-together-animation-studio_23-2149208028.jpg?w=740"
+                        class="img-fluid rounded-4 shadow"
+                        style="width: 100%; height: 550px; object-fit: cover;"
+                        alt="MediCare Hub Healthcare Team"
+                    />
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ABOUT CONTENT -->
+        <div class="col-xl-5 col-lg-5 col-md-12">
+
+            <div class="py-lg-0 py-4">
+
+                <!-- SMALL TITLE -->
+                <div class="text-primary d-inline-flex rounded-4 mb-3 fw-bold">
+                    <span>About Us</span>
+                </div>
+
+                <!-- MAIN TITLE -->
+                <h2 class="fw-bold mb-4 display-6">
+                    Quality Healthcare,
+                    <span class="text-primary">Trusted Care.</span>
+                </h2>
+
+                <!-- DESCRIPTION -->
+                <p class="fs-5  lh-lg mb-4 style="color: #212529;"">
+                    At <strong class="text-dark">MediCare Hub</strong>, we are committed
+                    to making healthcare simple, accessible, and patient-focused.
+                    Our platform connects patients with healthcare professionals
+                    and provides convenient tools for managing appointments,
+                    medical records, lab tests, prescriptions, and payments.
+                </p>
+
+                <p class="fs-5 lh-lg mb-4 style="color: #212529;"">
+                    We bring essential healthcare services together in one
+                    organized platform, helping patients stay informed about
+                    their care while allowing doctors to manage appointments
+                    and patient information efficiently.
+                </p>
+
+
+                <!-- FEATURES -->
+                
+
+
+
+
+                   
+
+
+
+
+                <!-- BUTTON -->
+                <div class="mt-4">
+                    <a href="#" class="btn btn-primary btn-lg fw-bold rounded-3 px-4">
+                        Meet Our Team
+                        <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ================= CONTACT US SECTION ================= -->
+
+<section class="py-5 my-4" id="contact-us">
+
+    <div class="container-fluid px-4 px-lg-5">
+
+        <!-- Section Heading -->
+        <div class="text-center mb-5">
+
+            <span class="text-primary fw-bold">
+                Contact Us
+            </span>
+
+            <h1 class="fw-bold display-5 mt-2">
+                We're Here to <span class="text-primary">Help You</span>
+            </h1>
+
+            <p class="text-dark fs-5 mx-auto mb-0" style="max-width: 750px;">
+                Have a question or need assistance? Our team is here to help.
+                Get in touch with MediCare Hub and we'll be happy to assist you.
+            </p>
+
+        </div>
+
+
+        <!-- Main Contact Area -->
+        <div class="row align-items-stretch g-4 g-xl-5">
+
+            <!-- ================= LEFT IMAGE ================= -->
+
+            <div class="col-xl-6 col-lg-6 col-md-12">
+
+                <div class="h-100">
+
+                    <img
+                        src="https://vivahr.com/wp-content/uploads/2024/05/benefits-manager-job-description-template.jpg"
+                        class="img-fluid w-100 h-100 rounded-4 shadow"
+                        style="min-height: 500px; object-fit: cover;"
+                        alt="MediCare Hub Healthcare Team"
+                    />
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= RIGHT CONTACT DETAILS ================= -->
+
+            <div class="col-xl-6 col-lg-6 col-md-12">
+
+                <div class="row g-4 h-100">
+
+
+                    <!-- EMAIL -->
+                    <div class="col-md-6">
+
+                        <div class="contact-card h-100 p-4 rounded-4 shadow-sm bg-white">
+
+                            <div class="contact-icon bg-primary mb-4">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+
+                            <h4 class="fw-bold mb-3">
+                                Send Us an Email
+                            </h4>
+
+                            <p class="text-dark mb-2">
+                                <i class="fas fa-envelope me-2 text-primary"></i>
+                                support@medicarehub.com
+                            </p>
+
+                            <p class="text-dark mb-0">
+                                <i class="fas fa-envelope me-2 text-primary"></i>
+                                info@medicarehub.com
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PHONE -->
+                    <div class="col-md-6">
+
+                        <div class="contact-card h-100 p-4 rounded-4 shadow-sm bg-white">
+
+                            <div class="contact-icon bg-primary mb-4">
+                                <i class="fas fa-phone"></i>
+                            </div>
+
+                            <h4 class="fw-bold mb-3">
+                                Call Us
+                            </h4>
+
+                            <p class="dark mb-2">
+                                <i class="fas fa-phone me-2 text-primary"></i>
+                                +91 98765 43210
+                            </p>
+
+                            <p class="dark mb-0">
+                                <i class="fas fa-phone me-2 text-primary"></i>
+                                +91 91234 56789
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ADDRESS -->
+                    <div class="col-md-6">
+
+                        <div class="contact-card h-100 p-4 rounded-4 shadow-sm bg-white">
+
+                            <div class="contact-icon bg-primary mb-4">
+                                <i class="fas fa-location-dot"></i>
+                            </div>
+
+                            <h4 class="fw-bold mb-3">
+                                Visit Us
+                            </h4>
+
+                            <p class="text-dark mb-2">
+                                MediCare Hub Healthcare Center
+                            </p>
+
+                            <p class="text-dark mb-0">
+                                Hyderabad, Telangana, India
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- WORKING HOURS -->
+                    <div class="col-md-6">
+
+                        <div class="contact-card h-100 p-4 rounded-4 shadow-sm bg-white">
+
+                            <div class="contact-icon bg-primary mb-4">
+                                <i class="fas fa-clock"></i>
+                            </div>
+
+                            <h4 class="fw-bold mb-3">
+                                Working Hours
+                            </h4>
+
+                            <p class="text-dark mb-2">
+                                Monday - Saturday
+                            </p>
+
+                            <p class="text-dark mb-0">
+                                9:00 AM - 6:00 PM
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+
+
+<!-- ================= FOOTER / COPYRIGHT SECTION ================= -->
+
+<footer class="bg-dark text-white mt-5">
+
+    <div class="container py-5">
+
+        <div class="row g-4">
+
+            <!-- Brand -->
+            <div class="col-lg-4 col-md-6">
+
+                <h3 class="fw-bold mb-3">
+                    <i class="fas  text-light me-2"></i>
+                     <span  class="text-light">MediCare Hub</span>
+                </h3>
+
+                <p class="text-light opacity-75 mb-0">
+                    Your trusted healthcare platform for convenient
+                    appointments, medical records, lab tests,
+                    prescriptions, and more.
+                </p>
+
+            </div>
+
+
+            <!-- Quick Links -->
+            <div class="col-lg-2 col-md-6">
+
+                <h5 class="fw-bold mb-3 text-light">
+                    Quick Links
+                </h5>
+
+                <ul class="list-unstyled">
+
+                    <li class="mb-2">
+                        <a href="/" class="text-light text-decoration-none opacity-75">
+                            Home
+                        </a>
+                    </li>
+
+                    <li class="mb-2">
+                        <a href="/#service-section" class="text-light text-decoration-none opacity-75">
+                            Services
+                        </a>
+                    </li>
+
+                    <li class="mb-2">
+                        <a href="/#about-us" class="text-light text-decoration-none opacity-75">
+                            About Us
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/#contact-us" class="text-light text-decoration-none opacity-75">
+                            Contact Us
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- Patient Services -->
+            <div class="col-lg-3 col-md-6">
+
+                <h5 class="fw-bold mb-3 text-light">
+                    Patient Services
+                </h5>
+
+                <ul class="list-unstyled">
+
+                    <li class="mb-2 text-light opacity-75">
+                        <i class="fas fa-check text-primary me-2"></i>
+                        Book Appointments
+                    </li>
+
+                    <li class="mb-2 text-light opacity-75">
+                        <i class="fas fa-check text-primary me-2"></i>
+                        Medical Reports
+                    </li>
+
+                    <li class="mb-2 text-light opacity-75">
+                        <i class="fas fa-check text-primary me-2"></i>
+                        Lab Tests
+                    </li>
+
+                    <li class="text-light opacity-75">
+                        <i class="fas fa-check text-primary me-2"></i>
+                        Prescriptions
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- Contact -->
+            <div class="col-lg-3 col-md-6">
+
+                <h5 class="fw-bold mb-3 text-light">
+                    Contact Us
+                </h5>
+
+                <p class="text-light opacity-75 mb-2">
+                    <i class="fas fa-envelope text-primary me-2"></i>
+                    support@medicarehub.com
+                </p>
+
+                <p class="text-light opacity-75 mb-2">
+                    <i class="fas fa-phone text-primary me-2"></i>
+                    +91 98765 43210
+                </p>
+
+                <p class="text-light opacity-75 mb-0">
+                    <i class="fas fa-location-dot text-primary me-2"></i>
+                    Hyderabad, Telangana, India
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Divider -->
+        <hr class="border-secondary my-4">
+
+
+        <!-- Copyright -->
+        <div class="row align-items-center">
+
+            <div class="col-md-6 text-center text-md-start">
+
+                <p class="mb-0 text-light opacity-75">
+                    © 2026
+                    <strong class="text-white">MediCare Hub</strong>.
+                    All Rights Reserved.
+                </p>
+
+            </div>
+
+
+            <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
+
+                <a href="#" class="text-light me-3 fs-5">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+
+                <a href="#" class="text-light me-3 fs-5">
+                    <i class="fab fa-instagram"></i>
+                </a>
+
+                <a href="#" class="text-light me-3 fs-5">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+
+                <a href="#" class="text-light fs-5">
+                    <i class="fab fa-twitter"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>
+
+<!-- ================= END FOOTER ================= -->
+
+
+
+
+
+
+
+
+
 
 
 

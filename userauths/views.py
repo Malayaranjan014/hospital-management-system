@@ -5,6 +5,8 @@ from django.contrib.auth import authenticate,login,logout
 from doctor import models as doctor_models 
 from patient import models as patient_models
 from userauths import models as userauths_models
+from django.contrib.auth import logout
+
 
 # Create your views here.
 def register_view(request):
@@ -151,15 +153,24 @@ def login_view(request):
 
 
 
+def logout_view(request):
+    logout(request)
+
+    messages.success(request,"You have been logged out successfully.")
+    return redirect ("userauths:signin")
+
+
+
+
 
 # def logout_view(request):
 #     logout(request)
 #     messages.success(request, "Logout successful")
 #     return redirect("userauths/signout.html")
 
-def logout_view(request):
-    logout(request)
+# def logout_view(request):
+#     logout(request)
 
-    messages.success(request, "Logout successful")
+#     messages.success(request, "Logout successful")
 
-    return render(request, "userauths/signin.html")
+#     return render(request, "userauths/signin.html")

@@ -1,14 +1,12 @@
 {% load static %}
 
 <!doctype html>
-
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>{% block title %} MediCare Hub {% endblock %}</title>
+    <title>{% block title %}MediCare Hub{% endblock %}</title>
 
     <!-- Bootstrap -->
     <link
@@ -38,16 +36,15 @@
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
 
     <!-- Page Specific CSS -->
-    {% block extra_css %} {% endblock %}
+    {% block extra_css %}{% endblock %}
   </head>
 
   <body>
-    <!-- ================= NAVBAR ================= -->
+    {% comment %} NAVBAR {% endcomment %}
 
     <nav class="navbar navbar-expand-lg">
       <div class="container">
         <!-- Logo -->
-
         <a class="navbar-brand" href="/">
           <i class="fas fa-heartbeat me-2"></i>
 
@@ -55,7 +52,6 @@
         </a>
 
         <!-- Mobile Menu Button -->
-
         <button
           class="navbar-toggler"
           type="button"
@@ -69,10 +65,8 @@
         </button>
 
         <!-- Navbar Content -->
-
         <div class="collapse navbar-collapse" id="navbarContent">
-          <!-- MENU -->
-
+           {% comment %} MENU  {% endcomment %}
           <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
             <!-- HOME -->
 
@@ -80,7 +74,7 @@
               <a class="nav-link active" aria-current="page" href="/"> Home </a>
             </li>
 
-            <!-- SERVICES -->
+          {% comment %} SERVICES  {% endcomment %}
 
             <li class="nav-item dropdown">
               <a
@@ -109,7 +103,11 @@
               </ul>
             </li>
 
-            <!-- DOCTOR DASHBOARD -->
+           {% comment %} doctor dashboard only for doctor  {% endcomment %}
+             
+         
+
+            {% if request.user.is_authenticated %} {% if request.user.user_type == "Doctor" %}
 
             <li class="nav-item dropdown">
               <a
@@ -131,7 +129,10 @@
                 </li>
 
                 <li>
-                  <a class="dropdown-item" href="{% url 'doctor:appointments' %}">
+                  <a
+                    class="dropdown-item"
+                    href="{% url 'doctor:appointments' %}"
+                  >
                     Appointments
                   </a>
                 </li>
@@ -143,7 +144,10 @@
                 </li>
 
                 <li>
-                  <a class="dropdown-item" href="{% url 'doctor:notifications' %}">
+                  <a
+                    class="dropdown-item"
+                    href="{% url 'doctor:notifications' %}"
+                  >
                     Notifications
                   </a>
                 </li>
@@ -156,7 +160,10 @@
               </ul>
             </li>
 
-            <!-- PATIENT DASHBOARD -->
+            {% endif %}
+
+            {% comment %} patient dashboard only for patient  {% endcomment %}
+            {% if request.user.user_type == "Patient" %}
 
             <li class="nav-item dropdown">
               <a
@@ -172,56 +179,70 @@
 
               <ul class="dropdown-menu" aria-labelledby="patientDropdown">
                 <li>
-                  <a class="dropdown-item" href={% url 'patient:dashboard' %}>
+                  <a class="dropdown-item" href="{% url 'patient:dashboard' %}">
                     Dashboard
                   </a>
                 </li>
 
                 <li>
-                  <a class="dropdown-item" href={% url 'patient:appointments' %}>
+                  <a
+                    class="dropdown-item"
+                    href="{% url 'patient:appointments' %}"
+                  >
                     Appointments
                   </a>
                 </li>
 
                 <li>
-                  <a class="dropdown-item" href={% url 'patient:medical_reports' %}>
+                  <a
+                    class="dropdown-item"
+                    href="{% url 'patient:medical_reports' %}"
+                  >
                     Medical Reports
                   </a>
                 </li>
 
                 <li>
-                  <a class="dropdown-item" href={% url 'patient:lab_tests' %}>
+                  <a class="dropdown-item" href="{% url 'patient:lab_tests' %}">
                     Lab Tests
                   </a>
                 </li>
 
                 <li>
-                  <a class="dropdown-item" href={% url 'patient:prescriptions' %}>
+                  <a
+                    class="dropdown-item"
+                    href="{% url 'patient:prescriptions' %}"
+                  >
                     Prescription
                   </a>
                 </li>
 
                 <li>
-                  <a class="dropdown-item" href={% url 'patient:payments' %}>
+                  <a class="dropdown-item" href="{% url 'patient:payments' %}">
                     Payments
                   </a>
                 </li>
 
                 <li>
-                  <a class="dropdown-item" href={% url 'patient:notifications' %}>
+                  <a
+                    class="dropdown-item"
+                    href="{% url 'patient:notifications' %}"
+                  >
                     Notifications
                   </a>
                 </li>
 
                 <li>
-                  <a class="dropdown-item" href={% url 'patient:profile' %}>
+                  <a class="dropdown-item" href="{% url 'patient:profile' %}">
                     Profile
                   </a>
                 </li>
               </ul>
             </li>
 
-            <!-- PAGES -->
+            {% endif %} {% endif %}
+
+            {% comment %} pages {% endcomment %}
 
             <li class="nav-item dropdown">
               <a
@@ -237,72 +258,81 @@
 
               <ul class="dropdown-menu" aria-labelledby="pagesDropdown">
                 <li>
-                  <a class="dropdown-item" href="/pages/about-us.html">
-                    About Us
-                  </a>
+                  <a class="dropdown-item" href="/#about-us"> About Us </a>
                 </li>
 
                 <li>
-                  <a class="dropdown-item" href="/pages/contact-us.html">
-                    Contact Us
-                  </a>
+                  <a class="dropdown-item" href="/#contact-us"> Contact Us </a>
                 </li>
               </ul>
             </li>
           </ul>
 
-          <!-- LOGIN / REGISTER -->
 
-          <div class="d-flex gap-2">
-            <a href="/auth/signin/" class="btn login-btn">
-              Login
+       
+           {% comment %} LOGIN / REGISTER / LOGOUT {% endcomment %}
+           <div class="d-flex align-items-center gap-3">
 
-              <i class="fas fa-sign-in-alt ms-1"></i>
-            </a>
+            {% if request.user.is_authenticated %}
 
-            <a href="/auth/signup/" class="btn register-btn">
-              Register
+                <span class="fw-semibold text-light">
+                    <i class="fas fa-user-circle text-light me-1"></i>
+                    Welcome, {{ request.user.username }}
+                </span>
 
-              <i class="fas fa-user-plus ms-1"></i>
-            </a>
-          </div>
+                <a href="{% url 'userauths:signout' %}" class="btn btn-danger">
+                    Logout
+                    <i class="fas fa-sign-out-alt ms-1"></i>
+                </a>
+
+            {% else %}
+
+                <a href="{% url 'userauths:signin' %}" class="btn login-btn">
+                    Login
+                    <i class="fas fa-sign-in-alt ms-1"></i>
+                </a>
+
+                <a href="{% url 'userauths:signup' %}" class="btn register-btn">
+                    Register
+                    <i class="fas fa-user-plus ms-1"></i>
+                </a>
+
+            {% endif %}
+
+</div>
+
         </div>
       </div>
     </nav>
 
-    <!--  PAGE CONTENT -->
+            {% comment %} message and alert  {% endcomment %}
 
+    {% for message in messages %}
 
-  {% comment %} alert message for doctor appointment shedule or cancel {% endcomment %}
-  
-
-{% for message in messages %}
-<div class="container mt-3">
-  <div class="alert alert-{{ message.tags }} alert-dismissible fade show 
-                shadow-sm rounded-3 text-center fw-semibold"
-         role="alert">
-         <i class="fas fa-check-circle me-2"></i>
+    <div class="container mt-3">
+      <div
+        class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm rounded-3 text-center fw-semibold"
+        role="alert"
+      >
+        <i class="fas fa-check-circle me-2"></i>
 
         {{ message }}
 
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        ></button>
       </div>
+    </div>
 
-</div>
-
-{% endfor %}
-
-
+    {% endfor %}
+                  {% comment %} PAGE CONTENT {% endcomment %}
 
     {% block content %} {% endblock %}
 
-
-
-
-    
-
-    <!-- JAVASCRIPT  -->
-
+     {% comment %} JAVASCRIPT {% endcomment %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     {% block extra_js %} {% endblock %}
