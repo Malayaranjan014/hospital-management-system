@@ -19,6 +19,13 @@ urlpatterns = [
 
 
     path("profile/",views.profile,name="profile"),
+    # for medical report 
+    path("medical_reports/", views.medical_reports, name="medical_reports"),
+
+    path("lab_tests/", views.lab_tests, name="lab_tests"),
+    path("prescriptions/", views.prescriptions, name="prescriptions"),
     
 
 ]
+
+

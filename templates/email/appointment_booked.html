@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                color: #333;
+                margin: 0;
+                padding: 20px;
+            }
+
+            .email-container {
+                background-color: #ffffff;
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            h1 {
+                font-size: 24px;
+                color: #0056b3;
+                margin-bottom: 20px;
+            }
+
+            p {
+                font-size: 16px;
+                line-height: 1.6;
+                margin-bottom: 10px;
+            }
+
+            h3 {
+                font-size: 18px;
+                color: #0056b3;
+                margin-top: 30px;
+                margin-bottom: 10px;
+            }
+
+            .info-section {
+                margin-bottom: 20px;
+            }
+
+            .info-section p {
+                margin: 5px 0;
+            }
+
+            b {
+                color: #333;
+            }
+
+            .footer-text {
+                font-size: 14px;
+                color: #999999;
+                margin-top: 30px;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="email-container">
+            <h1>Hi {{billing.appointment.patient.full_name}}</h1>
+            <p>Your appointment with Dr. {{ billing.appointment.doctor.full_name }}was successfully scheduled</p>
+
+            <div class="info-section">
+                <h3><b>Service and Issues</b></h3>
+                <p><b>Service:</b> {{billing.appointment.service.name}}</p>
+                <p><b>Issues:</b> {{billing.appointment.issues}}</p>
+                <p><b>Symptoms:</b>{{billing.appointment.symptoms}}</p>
+            </div>
+
+            <div class="info-section">
+                <h3><b>Doctor Bio Data</b></h3>
+                <p><b>Full Name:</b> Dr. {{billing.appointment.doctor.full_name}}</p>
+                <p><b>Email:</b>{{billing.appointment.doctor.user.email}}</p>
+            </div>
+
+            <div class="info-section">
+                <h3><b>Appointment Details</b></h3>
+                <p><b>Appointment Date:</b> {{billing.appointment.appointment_date}}</p>
+                <p><b>Appointment Status:</b>{{billing.appointment.status}}</p>
+                <p><b>Appointment ID:</b> {{billing.appointment.appointment_id}}</p>
+            </div>
+
+            <div class="info-section">
+                <h3><b>Billing Details</b></h3>
+                <p><b>Billing ID:</b> {{billing.billing_id}}</p>
+                <p><b>Price:</b> ${{billing.sub_total}}</p>
+                <p><b>Status:</b> {{billing.status}}</p>
+            </div>
+
+            <p class="footer-text">Thanks for booking an appointment, your health is our priority.</p>
+        </div> 
+    </body>
+</html>

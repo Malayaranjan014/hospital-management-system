@@ -1,0 +1,81 @@
+{% extends "partials/base.html" %}
+{% load static %}
+
+
+{% comment %}patient lab test section{% endcomment %}
+{% block title %}MediCareHub | Lab Tests{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'assets/css/index.css' %}" />
+{% endblock %}
+
+
+{% block content %}
+
+<section class="pt-5 pb-5">
+  <div class="container">
+    <div class="row mt-0 mt-md-4">
+
+      {% include 'patient/sidebar.html' %}
+
+      <div class="col-lg-9 col-md-8 col-12">
+
+        <h4 class="mb-0 mb-4 fw-bold">Lab Tests</h4>
+
+        <div class="card mb-4">
+
+          {% if lab_tests %}
+
+            {% for test in lab_tests %}
+
+            <div class="card mb-3 shadow-sm">
+              <div class="card-body">
+
+                <h5 class="card-title">Lab Test</h5>
+
+                <p>
+                  <strong>Appointment ID:</strong>
+                  {{ test.appointment.appointment_id }}
+                </p>
+
+                <p>
+                  <strong>Doctor:</strong>
+                  {{ test.appointment.doctor.full_name }}
+                </p>
+
+                <p>
+                  <strong>Test Name:</strong>
+                  {{ test.test_name }}
+                </p>
+
+                <p>
+                  <strong>Description:</strong>
+                  {{ test.description }}
+                </p>
+
+                <p>
+                  <strong>Result:</strong>
+                  {{ test.result }}
+                </p>
+
+              </div>
+            </div>
+
+            {% endfor %}
+
+          {% else %}
+
+          <div class="alert alert-info">
+            No lab tests are available yet.
+          </div>
+
+          {% endif %}
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

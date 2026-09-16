@@ -170,3 +170,52 @@ def profile(request):
     }
 
     return render(request, "patient/profile.html", context)
+
+
+# view for patient medical reports
+@login_required
+def medical_reports(request):
+    patient = patient_models.Patient.objects.get(user=request.user)
+
+    medical_records = base_models.MedicalRecord.objects.filter(
+        appointment__patient=patient
+    )
+
+    context = {
+        "medical_records": medical_records,
+    }
+
+    return render(request, "patient/medical_reports.html", context)
+
+
+# view for patient lab tests
+@login_required
+def lab_tests(request):
+    patient = patient_models.Patient.objects.get(user=request.user)
+
+    lab_tests = base_models.LabTest.objects.filter(
+        appointment__patient=patient
+    )
+
+    context = {
+        "lab_tests": lab_tests,
+    }
+
+    return render(request, "patient/lab_tests.html", context)
+
+
+
+# view for patient prescriptions
+@login_required
+def prescriptions(request):
+    patient = patient_models.Patient.objects.get(user=request.user)
+
+    prescriptions = base_models.Prescription.objects.filter(
+        appointment__patient=patient
+    )
+
+    context = {
+        "prescriptions": prescriptions,
+    }
+
+    return render(request, "patient/prescriptions.html", context)

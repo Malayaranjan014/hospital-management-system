@@ -1,0 +1,62 @@
+{% extends "partials/base.html" %} 
+{% load static %}
+
+ 
+{% comment %}patient medical report   section {% endcomment %}
+ {% block title %}MediCareHub | Doctor{% endblock %}
+
+ {% block extra_css %}
+<link rel="stylesheet" href="{% static 'assets/css/index.css' %}" />
+{% endblock %} 
+
+{% block content %}
+
+<section class="pt-5 pb-5">
+  <div class="container">
+    <div class="row mt-0 mt-md-4">
+      {% include 'patient/sidebar.html' %}
+      <div class="col-lg-9 col-md-8 col-12">
+        <h4 class="mb-0 mb-4 fw-bold">Medical Report</h4>
+        <div class="card mb-4">
+          {% if medical_records %} {% for record in medical_records %}
+
+          <div class="card mb-3 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">Medical Report</h5>
+
+              <p>
+                <strong>Appointment ID:</strong>
+                {{ record.appointment.appointment_id }}
+              </p>
+
+              <p>
+                <strong>Doctor:</strong>
+                {{ record.appointment.doctor.full_name }}
+              </p>
+
+              <p>
+                <strong>Diognosis:</strong>
+                {{ record.diagnosis }}
+              </p>
+
+              <p>
+                <strong>Treatment:</strong>
+                {{ record.treatment }}
+              </p>
+            </div>
+          </div>
+
+          {% endfor %} {% else %}
+
+          <div class="alert alert-info">
+            No medical reports are available yet.
+          </div>
+
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

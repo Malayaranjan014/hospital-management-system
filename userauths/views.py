@@ -1,14 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render,redirect
 from django.contrib import messages
 from userauths import forms as userauths_forms
-from django.contrib.auth import authenticate, login, logout
-from doctor import models as doctor_models
+from django.contrib.auth import authenticate,login,logout
+from doctor import models as doctor_models 
 from patient import models as patient_models
 from userauths import models as userauths_models
 
 # Create your views here.
-
-# register view 
 def register_view(request):
 
     if request.user.is_authenticated:
@@ -67,6 +65,7 @@ def register_view(request):
 
         form = userauths_forms.UserRegisterForm()
 
+  
     context = {
         "form": form
     }
@@ -78,7 +77,9 @@ def register_view(request):
     )
 
 
-# login view
+
+
+# login view 
 def login_view(request):
 
     if request.user.is_authenticated:
@@ -147,6 +148,8 @@ def login_view(request):
         "userauths/signin.html",
         context
     )
+
+
 
 
 # def logout_view(request):

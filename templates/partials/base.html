@@ -125,31 +125,31 @@
 
               <ul class="dropdown-menu" aria-labelledby="doctorDropdown">
                 <li>
-                  <a class="dropdown-item" href="/doctor/dashboard.html">
+                  <a class="dropdown-item" href="{% url 'doctor:dashboard' %}">
                     Dashboard
                   </a>
                 </li>
 
                 <li>
-                  <a class="dropdown-item" href="/doctor/appointments.html">
+                  <a class="dropdown-item" href="{% url 'doctor:appointments' %}">
                     Appointments
                   </a>
                 </li>
 
                 <li>
-                  <a class="dropdown-item" href="/doctor/payments.html">
+                  <a class="dropdown-item" href="{% url 'doctor:payments' %}">
                     Payments
                   </a>
                 </li>
 
                 <li>
-                  <a class="dropdown-item" href="/doctor/notifications.html">
+                  <a class="dropdown-item" href="{% url 'doctor:notifications' %}">
                     Notifications
                   </a>
                 </li>
 
                 <li>
-                  <a class="dropdown-item" href="/doctor/profile.html">
+                  <a class="dropdown-item" href="{% url 'doctor:profile' %}">
                     Profile
                   </a>
                 </li>
@@ -172,49 +172,49 @@
 
               <ul class="dropdown-menu" aria-labelledby="patientDropdown">
                 <li>
-                  <a class="dropdown-item" href="/patient/dashboard.html">
+                  <a class="dropdown-item" href={% url 'patient:dashboard' %}>
                     Dashboard
                   </a>
                 </li>
 
                 <li>
-                  <a class="dropdown-item" href="/patient/appointments.html">
+                  <a class="dropdown-item" href={% url 'patient:appointments' %}>
                     Appointments
                   </a>
                 </li>
 
                 <li>
-                  <a class="dropdown-item" href="/patient/medical-reports.html">
+                  <a class="dropdown-item" href={% url 'patient:medical_reports' %}>
                     Medical Reports
                   </a>
                 </li>
 
                 <li>
-                  <a class="dropdown-item" href="/patient/lab-tests.html">
+                  <a class="dropdown-item" href={% url 'patient:lab_tests' %}>
                     Lab Tests
                   </a>
                 </li>
 
                 <li>
-                  <a class="dropdown-item" href="/patient/prescription.html">
+                  <a class="dropdown-item" href={% url 'patient:prescriptions' %}>
                     Prescription
                   </a>
                 </li>
 
                 <li>
-                  <a class="dropdown-item" href="/patient/payments.html">
+                  <a class="dropdown-item" href={% url 'patient:payments' %}>
                     Payments
                   </a>
                 </li>
 
                 <li>
-                  <a class="dropdown-item" href="/patient/notifications.html">
+                  <a class="dropdown-item" href={% url 'patient:notifications' %}>
                     Notifications
                   </a>
                 </li>
 
                 <li>
-                  <a class="dropdown-item" href="/patient/profile.html">
+                  <a class="dropdown-item" href={% url 'patient:profile' %}>
                     Profile
                   </a>
                 </li>
