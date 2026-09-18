@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
 import stripe
 # convert py datastructure  in to json response
-from django.http import JsonResponse
+from django.http import JsonResponse 
 # for load .html or .text file
 from decimal import Decimal
 from django.core.mail import EmailMultiAlternatives
@@ -157,7 +157,7 @@ def stripe_payment_verify(request, billing_id):
         if billing.status == "Unpaid":
             billing.status = "Paid"
             billing.save()
-            billing.appointment.status = "Completed"
+            billing.appointment.status ="Scheduled"
             billing.appointment.save()
 
 
@@ -206,8 +206,10 @@ def stripe_payment_verify(request, billing_id):
                                 )
                     msg.attach_alternative(html_body, "text/html")
                     msg.send()
-            except:
-                    print("Email cannot be sent now!")
+            except Exception as e:
+                    print("Email error:", e)
+            # except:
+            #         print("Email cannot be sent now!")
             
 
             
@@ -330,5 +332,22 @@ def payment_status(request, billing_id):
     }
     return render(request, "base/payment_status.html", context)
 
+
+
+
+# for test the email apis
+
+# def test_email(request):
+
+#     message = EmailMultiAlternatives(
+#         subject="MediCare Hub Email Test",
+#         body="This is a test email from MediCare Hub.",
+#         from_email=settings.FROM_EMAIL,
+#         to=["supunpradhani79@gmail.com"],
+#     )
+
+#     message.send(fail_silently=False)
+
+#     return HttpResponse("Email sent successfully!")
 
 

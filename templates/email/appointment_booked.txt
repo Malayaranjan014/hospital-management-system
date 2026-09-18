@@ -1,0 +1,76 @@
+MediCare Hub
+Appointment Confirmed
+
+Hello {{ billing.appointment.patient.full_name }},
+
+Your appointment with Dr. {{ billing.appointment.doctor.full_name }} was successfully scheduled.
+
+Your appointment has been successfully confirmed.
+
+{% comment %} service appointment details  {% endcomment %}
+Service:
+{{ billing.appointment.service.name }}
+
+Issues:
+{{ billing.appointment.issues|default:"Not provided" }}
+
+Symptoms:
+{{ billing.appointment.symptoms|default:"Not provided" }}
+
+
+{% comment %} doctor informations  {% endcomment %}
+
+Doctor:
+Dr. {{ billing.appointment.doctor.full_name }}
+
+Email:
+{{ billing.appointment.doctor.user.email }}
+
+Specialization:
+{{ billing.appointment.doctor.specialization|default:"Not provided" }}
+
+Qualification:
+{{ billing.appointment.doctor.qualifications|default:"Not provided" }}
+
+
+{% comment %} appointment details  {% endcomment %}
+
+Appointment Date:
+{{ billing.appointment.appointment_date|date:"d M Y" }}
+
+Appointment Time:
+{{ billing.appointment.appointment_date|date:"h:i A" }}
+
+Appointment Status:
+{{ billing.appointment.status }}
+
+Appointment ID:
+{{ billing.appointment.appointment_id }}
+
+
+{% comment %} Billing Details  {% endcomment %}
+
+Billing ID:
+{{ billing.billing_id }}
+
+Subtotal:
+₹{{ billing.sub_total }}
+
+Tax:
+₹{{ billing.tax }}
+
+Total Amount:
+₹{{ billing.total }}
+
+Payment Status:
+{{ billing.status }}
+
+
+You can log in to your MediCare Hub patient dashboard
+to view your appointment and healthcare information.
+
+
+Thanks for booking an appointment with MediCare Hub.
+Your health is our priority.
+
+MediCare Hub Team

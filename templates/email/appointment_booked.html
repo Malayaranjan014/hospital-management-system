@@ -1,98 +1,247 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                background-color: #f4f4f4;
-                color: #333;
-                margin: 0;
-                padding: 20px;
-            }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-            .email-container {
-                background-color: #ffffff;
-                max-width: 600px;
-                margin: 0 auto;
-                padding: 20px;
-                border-radius: 10px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            }
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f8fb;
+        color: #333;
+        margin: 0;
+        padding: 20px;
+      }
 
-            h1 {
-                font-size: 24px;
-                color: #0056b3;
-                margin-bottom: 20px;
-            }
+      .email-container {
+        background-color: #ffffff;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      }
 
-            p {
-                font-size: 16px;
-                line-height: 1.6;
-                margin-bottom: 10px;
-            }
+      .header {
+        background-color: #0056b3;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        border-radius: 8px;
+        margin-bottom: 25px;
+      }
 
-            h3 {
-                font-size: 18px;
-                color: #0056b3;
-                margin-top: 30px;
-                margin-bottom: 10px;
-            }
+      .header h2 {
+        margin: 0;
+        color: white;
+      }
 
-            .info-section {
-                margin-bottom: 20px;
-            }
+      .header p {
+        color: white;
+        margin: 5px 0 0;
+        font-size: 14px;
+      }
 
-            .info-section p {
-                margin: 5px 0;
-            }
+      h1 {
+        font-size: 24px;
+        color: #0056b3;
+        margin-bottom: 20px;
+      }
 
-            b {
-                color: #333;
-            }
+      p {
+        font-size: 15px;
+        line-height: 1.6;
+        margin-bottom: 10px;
+      }
 
-            .footer-text {
-                font-size: 14px;
-                color: #999999;
-                margin-top: 30px;
-                text-align: center;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="email-container">
-            <h1>Hi {{billing.appointment.patient.full_name}}</h1>
-            <p>Your appointment with Dr. {{ billing.appointment.doctor.full_name }}was successfully scheduled</p>
+      h3 {
+        font-size: 18px;
+        color: #0056b3;
+        margin-top: 0;
+        margin-bottom: 15px;
+      }
 
-            <div class="info-section">
-                <h3><b>Service and Issues</b></h3>
-                <p><b>Service:</b> {{billing.appointment.service.name}}</p>
-                <p><b>Issues:</b> {{billing.appointment.issues}}</p>
-                <p><b>Symptoms:</b>{{billing.appointment.symptoms}}</p>
-            </div>
+      .info-section {
+        margin-bottom: 20px;
+        padding: 18px;
+        background-color: #f8fafc;
+        border-radius: 8px;
+      }
 
-            <div class="info-section">
-                <h3><b>Doctor Bio Data</b></h3>
-                <p><b>Full Name:</b> Dr. {{billing.appointment.doctor.full_name}}</p>
-                <p><b>Email:</b>{{billing.appointment.doctor.user.email}}</p>
-            </div>
+      .info-section p {
+        margin: 7px 0;
+      }
 
-            <div class="info-section">
-                <h3><b>Appointment Details</b></h3>
-                <p><b>Appointment Date:</b> {{billing.appointment.appointment_date}}</p>
-                <p><b>Appointment Status:</b>{{billing.appointment.status}}</p>
-                <p><b>Appointment ID:</b> {{billing.appointment.appointment_id}}</p>
-            </div>
+      b {
+        color: #333;
+      }
 
-            <div class="info-section">
-                <h3><b>Billing Details</b></h3>
-                <p><b>Billing ID:</b> {{billing.billing_id}}</p>
-                <p><b>Price:</b> ${{billing.sub_total}}</p>
-                <p><b>Status:</b> {{billing.status}}</p>
-            </div>
+      .status {
+        color: #198754;
+        font-weight: bold;
+      }
 
-            <p class="footer-text">Thanks for booking an appointment, your health is our priority.</p>
-        </div> 
-    </body>
+      .success-box {
+        background-color: #e8f5e9;
+        padding: 15px;
+        border-radius: 8px;
+        margin: 20px 0;
+      }
+
+      .success-box p {
+        color: #198754;
+        font-weight: bold;
+        margin: 0;
+      }
+
+      .footer-text {
+        font-size: 14px;
+        color: #777;
+        margin-top: 25px;
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="email-container">
+      <!-- Header -->
+
+      <div class="header">
+        <h2>MediCare Hub</h2>
+
+        <p>Hospital Management System</p>
+      </div>
+
+      <!-- Greeting -->
+
+      <h1>Hi {{ billing.appointment.patient.full_name }}</h1>
+
+      <p>
+        Your appointment with
+        <strong>Dr. {{ billing.appointment.doctor.full_name }}</strong>
+        was successfully scheduled.
+      </p>
+
+      <!-- Success Message -->
+
+      <div class="success-box">
+        <p>✓ Your appointment has been successfully confirmed.</p>
+      </div>
+
+      <!-- Service and Issues -->
+
+      <div class="info-section">
+        <h3>Service and Appointment Information</h3>
+
+        <p>
+          <b>Service:</b>
+          {{ billing.appointment.service.name }}
+        </p>
+
+        <p>
+          <b>Issues:</b>
+          {{ billing.appointment.issues|default:"Not provided" }}
+        </p>
+
+        <p>
+          <b>Symptoms:</b>
+          {{ billing.appointment.symptoms|default:"Not provided" }}
+        </p>
+      </div>
+
+      <!-- Doctor Information -->
+
+      <div class="info-section">
+        <h3>Doctor Information</h3>
+
+        <p>
+          <b>Doctor:</b>
+          Dr. {{ billing.appointment.doctor.full_name }}
+        </p>
+
+        <p>
+          <b>Email:</b>
+          {{ billing.appointment.doctor.user.email }}
+        </p>
+
+        <p>
+          <b>Specialization:</b>
+          {{ billing.appointment.doctor.specialization|default:"Not provided" }}
+        </p>
+
+        <p>
+          <b>Qualification:</b>
+          {{ billing.appointment.doctor.qualifications|default:"Not provided" }}
+        </p>
+      </div>
+
+      <!-- Appointment Details -->
+
+      <div class="info-section">
+        <h3>Appointment Details</h3>
+
+        <p>
+          <b>Appointment Date:</b>
+          {{ billing.appointment.appointment_date|date:"d M Y" }}
+        </p>
+
+        <p>
+          <b>Appointment Time:</b>
+          {{ billing.appointment.appointment_date|date:"h:i A" }}
+        </p>
+
+        <p>
+          <b>Appointment Status:</b>
+          <span class="status"> {{ billing.appointment.status }} </span>
+        </p>
+
+        <p>
+          <b>Appointment ID:</b>
+          {{ billing.appointment.appointment_id }}
+        </p>
+      </div>
+
+      <!-- Billing Details -->
+
+      <div class="info-section">
+        <h3>Billing Details</h3>
+
+        <p>
+          <b>Billing ID:</b>
+          {{ billing.billing_id }}
+        </p>
+
+        <p>
+          <b>Subtotal:</b>
+          ₹{{ billing.sub_total }}
+        </p>
+
+        <p>
+          <b>Tax:</b>
+          ₹{{ billing.tax }}
+        </p>
+
+        <p>
+          <b>Total Amount:</b>
+          ₹{{ billing.total }}
+        </p>
+
+        <p>
+          <b>Payment Status:</b>
+          <span class="status"> {{ billing.status }} </span>
+        </p>
+      </div>
+
+      <p>
+        You can log in to your MediCare Hub patient dashboard to view your
+        appointment and healthcare information.
+      </p>
+
+      <p class="footer-text">
+        Thanks for booking an appointment with MediCare Hub. Your health is our
+        priority.
+      </p>
+    </div>
+  </body>
 </html>

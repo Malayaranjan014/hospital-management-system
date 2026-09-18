@@ -162,15 +162,3 @@ def logout_view(request):
 
 
 
-
-# def logout_view(request):
-#     logout(request)
-#     messages.success(request, "Logout successful")
-#     return redirect("userauths/signout.html")
-
-# def logout_view(request):
-#     logout(request)
-
-#     messages.success(request, "Logout successful")
-
-#     return render(request, "userauths/signin.html")

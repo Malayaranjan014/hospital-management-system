@@ -159,16 +159,20 @@ MESSAGE_TAGS={
     messages.ERROR :"danger"
 }
 
-# configure an email api 
-ANYMAIL={
-    "MAILGUN_API_KEY" : os.environ.get("MAILGUN_API_KEY"),
-    "MAILGUN_SENDER_DOMAIN":os.environ.get("MAILGUN_SENDER_DOMAIN"),
+
+# Mailgun Email Configuration
+ANYMAIL = {
+    "MAILGUN_API_KEY": env("MAILGUN_API_KEY"),
+    "MAILGUN_SENDER_DOMAIN": env("MAILGUN_SENDER_DOMAIN"),
 }
 
-FROM_MAIL="supunpradhani79@gmail.com"
-EMAIL_BACKEND="anymail.backends.mailgun.EmailBackend"
-DEFAULT_FROM_EMAIL="supunpradhani79@gmail.com"
-SERVER_EMAIL="supunpradhni79@gmail.com"
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
+
+FROM_EMAIL = env("FROM_EMAIL")
+
+DEFAULT_FROM_EMAIL = env("FROM_EMAIL")
+
+SERVER_EMAIL = env("FROM_EMAIL")
 
 
 
@@ -188,11 +192,11 @@ PAYPAL_CLIENT_SECRET=env("PAYPAL_SECRET_ID")
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
-MAILERS = {
-    'default': {
-        'BACKEND': 'django.core.mail.backends.console.EmailBackend',
-    },
-}
+# MAILERS = {
+#     'default': {
+#         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
+#     },
+# }
 
 
 

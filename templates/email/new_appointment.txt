@@ -1,0 +1,39 @@
+MediCare Hub
+New Appointment
+
+Hello Dr. {{ billing.appointment.doctor.full_name }},
+
+You have received a new appointment.
+
+Patient: {{ billing.appointment.patient.full_name }}
+Patient Email: {{ billing.appointment.patient.email }}
+Patient Mobile: {{ billing.appointment.patient.mobile }}
+
+Service: {{ billing.appointment.service.name }}
+
+Issues:
+{{ billing.appointment.issues|default:"Not provided" }}
+
+Symptoms:
+{{ billing.appointment.symptoms|default:"Not provided" }}
+
+Appointment ID: {{ billing.appointment.appointment_id }}
+
+Appointment Date:
+{{ billing.appointment.appointment_date|date:"d M Y" }}
+
+Appointment Time:
+{{ billing.appointment.appointment_date|date:"h:i A" }}
+
+Appointment Status:
+{{ billing.appointment.status }}
+
+Billing ID: {{ billing.billing_id }}
+
+Total: ₹{{ billing.total }}
+
+Payment Status: {{ billing.status }}
+
+Please log in to your MediCare Hub Doctor Dashboard for more details.
+
+MediCare Hub Team
