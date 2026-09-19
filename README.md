@@ -342,6 +342,7 @@ hospital-management-system/
 ### Database
 
 * SQLite for development
+* PostgreSql for Deploy
 
 
 ### Payment Gateways
