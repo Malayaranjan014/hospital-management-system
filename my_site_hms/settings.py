@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
+import dj_database_url
 from pathlib import Path
 
 # importing OS is-used for the python module allow to interect with the operating system 
@@ -29,12 +30,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-k9nu&ywc%y@fzg0@)2c1rjpowo=)*j@hz3!)m*e83$g!k8e0i+'
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool("DEBUG", default=True)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list(
+    "ALLOWED_HOSTS",
+    default=["localhost", "127.0.0.1"]
+)
+
+
+CSRF_TRUSTED_ORIGINS = env.list(
+    "CSRF_TRUSTED_ORIGINS",
+    default=[]
+)
+
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
 
 
@@ -59,6 +70,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -111,6 +123,29 @@ DATABASES = {
     }
 }
 
+
+# DATABASE_URL = env("DATABASE_URL", default=None)
+
+# if DATABASE_URL:
+#     DATABASES = {
+#         "default": dj_database_url.parse(
+#             DATABASE_URL,
+#             conn_max_age=600,
+#             ssl_require=True,
+#         )
+#     }
+# else:
+#     DATABASES = {
+#         "default": {
+#             "ENGINE": "django.db.backends.postgresql",
+#             "NAME": env("DB_NAME"),
+#             "USER": env("DB_USER"),
+#             "PASSWORD": env("DB_PASSWORD"),
+#             "HOST": env("DB_HOST"),
+#             "PORT": env("DB_PORT"),
+#         }
+#     }
+
 # Password validation
 # https://docs.djangoproject.com/en/6.1/ref/settings/#auth-password-validators
 
@@ -146,12 +181,30 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = "/static/"
 
-STATIC_ROOT= os.path.join(BASE_DIR,"staticfiles")     #its collect the all static file and store in static root 
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+# Add WhiteNoise static storage
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
+# STATIC_URL = 'static/'
+
+# STATIC_ROOT= os.path.join(BASE_DIR,"staticfiles")     #its collect the all static file and store in static root 
 
 
-STATICFILES_DIRS= [os.path.join(BASE_DIR,"static")]
+# STATICFILES_DIRS= [os.path.join(BASE_DIR,"static")]
 
 MEDIA_URL='/media/'     #user for user uploaded files 
 
@@ -269,6 +322,6 @@ JAZZMIN_UI_TWEAKS = {
 
 
 
-
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
