@@ -18,7 +18,7 @@ class Doctor(models.Model):
     image = models.FileField(upload_to="images", null=True, blank=True)
     mobile = models.CharField(max_length=100, null=True, blank=True)
     country = models.CharField(max_length=100, null=True, blank=True)
-    bio = models.CharField(max_length=100, null=True, blank=True)
+    bio = models.CharField(max_length=500, null=True, blank=True)
     specialization = models.CharField(max_length=100, null=True, blank=True)
     qualifications = models.CharField(max_length=100, null=True, blank=True)
     years_of_experience = models.CharField(max_length=100, null=True, blank=True)
