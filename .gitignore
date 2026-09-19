@@ -26,3 +26,5 @@ db.sqlite3
 
 staticfiles/
 media/
+
+data.json
