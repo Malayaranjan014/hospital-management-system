@@ -60,6 +60,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    #  store image for render we use
+    'cloudinary',
+    'cloudinary_storage',
+
+
+
+
     'base',
     'doctor',
     'patient',
@@ -190,9 +198,30 @@ STATICFILES_DIRS = [
 ]
 
 # Add WhiteNoise static storage
+
+
+# for image uplad to CLOUDINARY_STORAGE
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": env("CLOUDINARY_CLOUD_NAME"),
+    "API_KEY": env("CLOUDINARY_API_KEY"),
+    "API_SECRET": env("CLOUDINARY_API_SECRET"),
+}
+
+import cloudinary
+
+cloudinary.config(
+    cloud_name=env("CLOUDINARY_CLOUD_NAME"),
+    api_key=env("CLOUDINARY_API_KEY"),
+    api_secret=env("CLOUDINARY_API_SECRET"),
+)
+
+# Whenever an ImageField saves an image, upload it to Cloudinary 
+# instead of saving it only inside the local media/ folder.
+
+
 STORAGES = {
     "default": {
-        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
