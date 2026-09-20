@@ -39,3 +39,6 @@ typing_extensions==4.16.0
 tzdata==2026.3
 urllib3==1.26.20
 whitenoise==5.2.0
+
+cloudinary==1.46.2
+django-cloudinary-storage==0.3.0
